@@ -1,0 +1,8 @@
+.DS_Store
+*~
+.netrwhist
+*.swp
+undodir/*
+.vscode/
+.history/
+xcuserdata/
