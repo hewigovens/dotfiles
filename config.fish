@@ -63,6 +63,14 @@ alias sha1='shasum'
 alias sha256='shasum -a 256'
 alias gitup='gitup commit'
 
+function int2hex
+    math --base=hex $argv
+end
+
+function hex2int
+    math $argv
+end
+
 function restart_finder
     echo 'tell application "Finder" to quit' | osascript
     open -a Finder
