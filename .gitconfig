@@ -1,42 +1,60 @@
 [user]
 	name = hewigovens
 	email = 360470+hewigovens@users.noreply.github.com
-	signingKey = 2ACDE05EC307A30D576048D4C3BFC7A22B64354B
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAspCvw2cjlYtJFByfGvvgVz7BftVWtQBYLFe1EuDIU4
+
 [push]
 	default = current
+
+[pull]
+	ff = only
+
+[init]
+	defaultBranch = master
+
 [color]
 	ui = true
+
 [core]
 	editor = vim
 	ignorecase = false
 	excludesfile = ~/.gitignore
+
 [commit]
-	gpgsign = false
+	gpgsign = true
+
+[gpg]
+	format = ssh	
+
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+
 [merge]
 	tool = vscode
+
 [mergetool "vscode"]
 	cmd = code --wait $MERGED
-[diff]
-	tool = vscode
 
+[diff]
+    #tool = vscode
+    tool = difftastic
+	external = difft
+
+[difftool]
+    prompt = false
+
+[difftool "difftastic"]
+    cmd = difft "$LOCAL" "$REMOTE"
+    
 [difftool "vscode"]
 	cmd = "code --wait --diff $LOCAL $REMOTE"
 
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-[pull]
-	ff = only
-[init]
-	defaultBranch = master
-
 [pager]
-    diff = delta
-    log = delta
-    reflog = delta
-    show = delta
+	difftool = true
+    #diff = delta
+    #log = delta
+    #reflog = delta
+    #show = delta
 
 [interactive]
     diffFilter = delta --color-only
@@ -52,5 +70,5 @@
 
 [alias]
     set-upstream = \
-       !git branch \
-           --set-upstream-to=origin/`git symbolic-ref --short HEAD`
+	required = true
+	clean = git-lfs clean -- %f
