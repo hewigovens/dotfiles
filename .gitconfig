@@ -1,7 +1,7 @@
 [user]
 	name = hewigovens
 	email = 360470+hewigovens@users.noreply.github.com
-	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAspCvw2cjlYtJFByfGvvgVz7BftVWtQBYLFe1EuDIU4
+	signingkey = ~/.ssh/sign_ed25519.pub
 
 [push]
 	default = current
@@ -24,10 +24,10 @@
 	gpgsign = true
 
 [gpg]
-	format = ssh	
+	format = ssh
 
 [gpg "ssh"]
-	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+	allowedSignersFile = ~/.ssh/allowed_signers
 
 [merge]
 	tool = vscode
@@ -36,8 +36,7 @@
 	cmd = code --wait $MERGED
 
 [diff]
-    #tool = vscode
-    tool = difftastic
+	tool = difftastic
 	external = difft
 
 [difftool]
@@ -48,13 +47,6 @@
     
 [difftool "vscode"]
 	cmd = "code --wait --diff $LOCAL $REMOTE"
-
-[pager]
-	difftool = true
-    #diff = delta
-    #log = delta
-    #reflog = delta
-    #show = delta
 
 [interactive]
     diffFilter = delta --color-only
@@ -70,5 +62,16 @@
 
 [alias]
     set-upstream = \
+	    !git branch \
+        --set-upstream-to=origin/`git symbolic-ref --short HEAD`
 	required = true
 	clean = git-lfs clean -- %f
+
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+
+[url "git@github.com:"]
+	insteadOf = https://github.com/
