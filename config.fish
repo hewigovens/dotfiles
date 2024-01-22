@@ -3,6 +3,7 @@ if status is-interactive
 end
 
 set fish_greeting
+export HOMEBREW_NO_ENV_HINTS=1
 
 # Nav
 alias ...='cd .. && cd ..'
@@ -13,9 +14,9 @@ alias la='ls -a'
 # Utils
 alias psgrep='ps -ef | grep -v grep | grep -ni'
 alias g='grep -ni'  # Case insensitive grep
-alias f='find . | grep -ni' 
+alias f='find . | grep -ni'
 alias ducks='du -cksh * | sort -rn|head -11' # Lists folders and files sizes in the current folder
-alias duck='du -h -d1' 
+alias duck='du -h -d1'
 alias df='df -h'
 alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
 alias cls='clear'
@@ -32,11 +33,6 @@ alias gmt='git mergetool'
 alias grc='git rebase --continue'
 alias gra='git rebase --abort'
 
-# pod
-alias pdi="pod install --verbose"
-alias pdu="pod install --verbose --repo-update"
-alias pd="pod install"
-
 # tmux
 alias tn='tmux new-session -s'
 alias tl='tmux list-session'
@@ -49,20 +45,6 @@ alias dla='youtube-dl --ignore-errors --output "%(title)s.%(ext)s" --extract-aud
 alias wc_cmake="cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Debug"
 alias wc_make="make -Cbuild -j12 tests && build/tests/tests tests"
 
-# macOS
-
-alias op='open'
-alias x2b='plutil -convert binary1'
-alias b2x='plutil -convert xml1'
-alias pplist='/usr/libexec/PlistBuddy -c "Print"'
-alias plistbuddy='/usr/libexec/PlistBuddy'
-alias plisteditor='open -b com.apple.PropertyListEditor'
-alias listallkext='kextstat -l'
-alias listkext='kextstat -l | grep -v apple'
-alias sha1='shasum'
-alias sha256='shasum -a 256'
-alias gitup='gitup commit'
-
 function int2hex
     math --base=hex $argv
 end
@@ -71,23 +53,41 @@ function hex2int
     math $argv
 end
 
-function restart_finder
-    echo 'tell application "Finder" to quit' | osascript
-    open -a Finder
-end
+if test (uname) = Darwin
+    # CocoaPods
+    alias pdi="pod install --verbose"
+    alias pdu="pod install --verbose --repo-update"
+    alias pd="pod install"
 
-function show_desktop_icons
-    defaults write com.apple.finder CreateDesktop -bool true
-    restart_finder
-end
+    # macOS
+    alias op='open'
+    alias x2b='plutil -convert binary1'
+    alias b2x='plutil -convert xml1'
+    alias pplist='/usr/libexec/PlistBuddy -c "Print"'
+    alias plistbuddy='/usr/libexec/PlistBuddy'
+    alias plisteditor='open -b com.apple.PropertyListEditor'
+    alias listallkext='kextstat -l'
+    alias listkext='kextstat -l | grep -v apple'
+    alias sha1='shasum'
+    alias sha256='shasum -a 256'
+    alias gitup='gitup commit'
 
-function hide_desktop_icons
-    defaults write com.apple.finder CreateDesktop -bool false
-    restart_finder
-end
+    function restart_finder
+        echo 'tell application "Finder" to quit' | osascript
+        open -a Finder
+    end
 
-function dequarantine
-    xattr -d com.apple.quarantine "$argv"
-end
+    function show_desktop_icons
+        defaults write com.apple.finder CreateDesktop -bool true
+        restart_finder
+    end
 
-export HOMEBREW_NO_ENV_HINTS=1
+    function hide_desktop_icons
+        defaults write com.apple.finder CreateDesktop -bool false
+        restart_finder
+    end
+
+    function dequarantine
+        xattr -d com.apple.quarantine "$argv"
+    end
+end
