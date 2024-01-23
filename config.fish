@@ -3,7 +3,9 @@ if status is-interactive
 end
 
 set fish_greeting
-export HOMEBREW_NO_ENV_HINTS=1
+set -x HOMEBREW_NO_ENV_HINTS 1
+set -x LC_ALL en_US.UTF-8
+set -x LC_CTYPE en_US.UTF-8
 
 # Nav
 alias ...='cd .. && cd ..'
