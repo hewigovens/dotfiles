@@ -1,5 +1,8 @@
 if status is-interactive
-    # Commands to run in interactive sessions can go here
+    if test (uname) = Darwin
+        eval (ssh-agent -c)
+        ssh-add --apple-use-keychain
+    end
 end
 
 set fish_greeting
