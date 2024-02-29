@@ -3,6 +3,9 @@
 .netrwhist
 *.swp
 undodir/*
+
 .vscode/
+.run/
 .history/
 xcuserdata/
+.env
