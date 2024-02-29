@@ -28,6 +28,7 @@ alias cls='clear'
 
 # Git
 alias gs='git status'
+alias ga='git add'
 alias gcl='git clone'
 alias gco='git checkout'
 alias gl='git log -p --color --stat --graph'
@@ -45,10 +46,6 @@ alias ta='tmux attach -t'
 alias td='tmux detach'
 
 alias dla='youtube-dl --ignore-errors --output "%(title)s.%(ext)s" --extract-audio --audio-format m4a'
-
-# wc
-alias wc_cmake="cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Debug"
-alias wc_make="make -Cbuild -j12 tests && build/tests/tests tests"
 
 function int2hex
     math --base=hex $argv
