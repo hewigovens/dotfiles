@@ -1,11 +1,30 @@
+# macOS
 .DS_Store
 *~
+
+# Vim
 .netrwhist
 *.swp
-undodir/*
+undodir/
 
+# VSCode
 .vscode/
 .run/
 .history/
-xcuserdata/
 .env
+
+# Xcode
+xcuserdata/
+
+# node
+node_modules/
+
+# gradle
+*.gradle/
+local.properties
+
+# rust
+target/
+
+# git
+*.orig

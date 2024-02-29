@@ -40,32 +40,21 @@
 	external = difft
 
 [difftool]
-    prompt = false
+	prompt = false
 
 [difftool "difftastic"]
-    cmd = difft "$LOCAL" "$REMOTE"
-    
+	cmd = difft "$LOCAL" "$REMOTE"
+
 [difftool "vscode"]
 	cmd = "code --wait --diff $LOCAL $REMOTE"
 
-[interactive]
-    diffFilter = delta --color-only
-
-[delta]
-    features = side-by-side line-numbers decorations
-    whitespace-error-style = 22 reverse
-
-[delta "decorations"]
-    commit-decoration-style = bold yellow box ul
-    file-style = bold yellow ul
-    file-decoration-style = none
+[pager]
+	difftool = true
 
 [alias]
-    set-upstream = \
-	    !git branch \
-        --set-upstream-to=origin/`git symbolic-ref --short HEAD`
-	required = true
-	clean = git-lfs clean -- %f
+	set-upstream = \
+		!git branch \
+		--set-upstream-to=origin/`git symbolic-ref --short HEAD`
 
 [filter "lfs"]
 	required = true

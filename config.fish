@@ -7,8 +7,7 @@ end
 
 set fish_greeting
 set -x HOMEBREW_NO_ENV_HINTS 1
-set -x LC_ALL en_US.UTF-8
-set -x LC_CTYPE en_US.UTF-8
+set -gx ANDROID_HOME $HOME/Library/Android/sdk
 
 # Nav
 alias ...='cd .. && cd ..'
@@ -33,11 +32,14 @@ alias gcl='git clone'
 alias gco='git checkout'
 alias gl='git log -p --color --stat --graph'
 alias glf='git log -p --color --stat --graph --follow'
-alias gf='git diff --color --ignore-space-at-eol'
+alias gdf='git diff --color --ignore-space-at-eol'
 alias gft='git difftool'
 alias gmt='git mergetool'
 alias grc='git rebase --continue'
 alias gra='git rebase --abort'
+alias gpl='git pull'
+alias gp='git push'
+alias gbd='git branch -D'
 
 # tmux
 alias tn='tmux new-session -s'
@@ -53,6 +55,10 @@ end
 
 function hex2int
     math $argv
+end
+
+function local_ip
+    ifconfig | grep "broadcast" | awk '{print $2}'
 end
 
 if test (uname) = Darwin
