@@ -19,6 +19,7 @@ cask "rectangle"
 cask "rapidapi"
 cask "suspicious-package"
 cask "applite"
+cask "daisydisk"
 
 # https://apps.apple.com/us/app/telegram/id747648890?mt=12
 mas "Telegram", id: 747648890
@@ -32,3 +33,5 @@ mas "Shadowrocket", id: 932747118
 mas "Immersive Translate for Safari", id: 6447957425
 # https://apps.apple.com/us/app/command-x/id6448461551?mt=12
 mas "Command-X", id: 6448461551
+# https://apps.apple.com/us/app/gifski/id1351639930?mt=12
+mas "Gifski", id: 1351639930
