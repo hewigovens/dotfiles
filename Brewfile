@@ -28,3 +28,7 @@ mas "Irvue", id: 1039633667
 mas "Gapplin", id: 768053424
 # https://apps.apple.com/us/app/shadowrocket/id932747118
 mas "Shadowrocket", id: 932747118
+# https://apps.apple.com/us/app/immersive-translate-for-safari/id6447957425
+mas "Immersive Translate for Safari", id: 6447957425
+# https://apps.apple.com/us/app/command-x/id6448461551?mt=12
+mas "Command-X", id: 6448461551
