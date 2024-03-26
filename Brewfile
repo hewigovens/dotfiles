@@ -1,3 +1,5 @@
+tap "homebrew/cask-fonts"
+
 brew "fish"
 brew "git-lfs"
 brew "mas"
@@ -8,6 +10,8 @@ brew "rustup-init"
 brew "gh"
 
 cask "iterm2"
+cask "font-fira-code"
+cask "font-cascadia-code"
 cask "visual-studio-code"
 cask "microsoft-edge"
 cask "1password"
@@ -33,7 +37,5 @@ mas "Gapplin", id: 768053424
 mas "Shadowrocket", id: 932747118
 # https://apps.apple.com/us/app/immersive-translate-for-safari/id6447957425
 mas "Immersive Translate for Safari", id: 6447957425
-# https://apps.apple.com/us/app/command-x/id6448461551?mt=12
-mas "Command-X", id: 6448461551
 # https://apps.apple.com/us/app/gifski/id1351639930?mt=12
 mas "Gifski", id: 1351639930
