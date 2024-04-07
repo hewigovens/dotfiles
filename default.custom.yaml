@@ -1,6 +1,6 @@
 patch:
   schema_list:
-    - schema: double_pinyin_mspy
+    - schema: double_pinyin_sogou
     - schema: japanese
   switcher:
     caption: <切换>
@@ -16,6 +16,6 @@ patch:
       - zh_hans
     fold_options: true
     abbreviate_options: false
-    option_list_separator: '|'
+    option_list_separator: " | "
   menu:
-    page_size: 7
+    page_size: 9
