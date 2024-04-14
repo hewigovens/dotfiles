@@ -1,7 +1,7 @@
 if status is-interactive
     if test (uname) = Darwin
         eval (ssh-agent -c)
-        ssh-add --apple-use-keychain
+        ssh-add -k --apple-use-keychain
     end
 end
 
