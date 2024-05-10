@@ -101,3 +101,12 @@ if test (uname) = Darwin
         source ~/.config/fish/iterm2.fish
     end
 end
+
+# pyenv init - | source
+nvm use latest
+# pnpm
+set -gx PNPM_HOME /Users/hewig/Library/pnpm
+if not string match -q -- $PNPM_HOME $PATH
+    set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
