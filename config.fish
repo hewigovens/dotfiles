@@ -1,4 +1,4 @@
-if status is-interactive
+if string length -q -- $SSH_TTY
     if test (uname) = Darwin
         eval (ssh-agent -c)
         ssh-add -k --apple-use-keychain
@@ -17,7 +17,7 @@ alias la='ls -a'
 
 # Utils
 alias psgrep='ps -ef | grep -v grep | grep -ni'
-alias g='grep -ni'  # Case insensitive grep
+alias g='grep -ni' # Case insensitive grep
 alias f='find . | grep -ni'
 alias ducks='du -cksh * | sort -rn|head -11' # Lists folders and files sizes in the current folder
 alias duck='du -h -d1'
@@ -47,8 +47,6 @@ alias tl='tmux list-session'
 alias ta='tmux attach -t'
 alias td='tmux detach'
 
-alias dla='youtube-dl --ignore-errors --output "%(title)s.%(ext)s" --extract-audio --audio-format m4a'
-
 function int2hex
     math --base=hex $argv
 end
@@ -58,7 +56,7 @@ function hex2int
 end
 
 function local_ip
-    ifconfig | grep "broadcast" | awk '{print $2}'
+    ifconfig | grep broadcast | awk '{print $2}'
 end
 
 if test (uname) = Darwin
