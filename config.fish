@@ -77,6 +77,7 @@ if test (uname) = Darwin
     alias sha1='shasum'
     alias sha256='shasum -a 256'
     alias gitup='gitup commit'
+    alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 
     function restart_finder
         echo 'tell application "Finder" to quit' | osascript
