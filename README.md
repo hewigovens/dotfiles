@@ -1,1 +1,1 @@
-`brew install fish difftastic git-lfs`
+`brew bundle install`
