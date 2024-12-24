@@ -47,12 +47,19 @@ alias tl='tmux list-session'
 alias ta='tmux attach -t'
 alias td='tmux detach'
 
-function int2hex
+function int_to_hex
     math --base=hex $argv
 end
 
-function hex2int
+function str_to_hex
+    echo -n $argv | xxd -p
+
+function hex_to_int
     math $argv
+end
+
+function hex_to_str
+    echo $argv | xxd -p -r
 end
 
 function local_ip
