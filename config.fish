@@ -53,6 +53,7 @@ end
 
 function str_to_hex
     echo -n $argv | xxd -p
+end
 
 function hex_to_int
     math $argv
@@ -103,9 +104,5 @@ if test (uname) = Darwin
 
     function dequarantine
         xattr -d com.apple.quarantine "$argv"
-    end
-
-    if test -f ~/.config/fish/iterm2.fish
-        source ~/.config/fish/iterm2.fish
     end
 end
