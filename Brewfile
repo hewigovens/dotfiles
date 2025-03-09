@@ -25,7 +25,6 @@ cask "rapidapi"
 cask "suspicious-package"
 cask "applite"
 cask "daisydisk"
-# cask "bruno"
 
 # https://apps.apple.com/us/app/telegram/id747648890?mt=12
 mas "Telegram", id: 747648890
