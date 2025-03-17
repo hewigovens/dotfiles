@@ -1,5 +1,3 @@
-tap "homebrew/cask-fonts"
-
 brew "fish"
 brew "git-lfs"
 brew "mas"
@@ -10,6 +8,7 @@ brew "rustup-init"
 brew "gh"
 
 cask "iterm2"
+cask "ghostty"
 cask "font-fira-code"
 cask "font-cascadia-code"
 cask "visual-studio-code"
@@ -23,7 +22,6 @@ cask "obsidian"
 cask "rectangle"
 cask "rapidapi"
 cask "suspicious-package"
-cask "applite"
 cask "daisydisk"
 
 # https://apps.apple.com/us/app/telegram/id747648890?mt=12
@@ -36,5 +34,3 @@ mas "Gapplin", id: 768053424
 mas "Shadowrocket", id: 932747118
 # https://apps.apple.com/us/app/immersive-translate-for-safari/id6447957425
 mas "Immersive Translate for Safari", id: 6447957425
-# https://apps.apple.com/us/app/gifski/id1351639930?mt=12
-mas "Gifski", id: 1351639930
