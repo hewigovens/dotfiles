@@ -5,6 +5,8 @@ brew "difftastic"
 brew "wget"
 brew "tree"
 brew "gh"
+brew "uv"
+brew "nvm"
 
 cask "iterm2"
 cask "ghostty"
@@ -31,6 +33,7 @@ cask "tailscale"
 cask "xcodes"
 cask "github-copilot-for-xcode"
 cask "swiftformat-for-xcode"
+cask "orbstack"
 
 # https://apps.apple.com/us/app/telegram/id747648890?mt=12
 mas "Telegram", id: 747648890
