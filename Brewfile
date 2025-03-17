@@ -34,7 +34,9 @@ cask "xcodes"
 cask "github-copilot-for-xcode"
 cask "swiftformat-for-xcode"
 cask "orbstack"
-cask "topnotch"
+cask "ollama"
+cask "pearcleaner"
+cask "dropbox"
 
 # https://apps.apple.com/us/app/telegram/id747648890?mt=12
 mas "Telegram", id: 747648890
