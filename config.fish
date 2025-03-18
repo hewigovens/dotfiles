@@ -143,8 +143,8 @@ end
 
 # Function to load NVM
 function load_nvm
-    if test -d "$HOME/.nvm"
-        nvm use latest
+    if test -d "$HOME/.nvm" && test -f "$HOME/.nvmrc"
+        nvm use
     end
 end
 
