@@ -39,6 +39,7 @@ cask "ollama"
 cask "pearcleaner"
 cask "dropbox"
 cask "topnotch"
+cask "monitorcontrol"
 
 # https://apps.apple.com/us/app/telegram/id747648890?mt=12
 mas "Telegram", id: 747648890
