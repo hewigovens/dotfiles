@@ -59,3 +59,5 @@ mas "Gapplin", id: 768053424
 mas "Shadowrocket", id: 932747118
 # https://apps.apple.com/us/app/immersive-translate-for-safari/id6447957425
 mas "Immersive Translate for Safari", id: 6447957425
+# https://apps.apple.com/us/app/localsend/id1661733229
+mas "LocalSend", id: 1661733229
