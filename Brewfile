@@ -6,7 +6,7 @@ brew "wget"
 brew "tree"
 brew "gh"
 brew "uv"
-brew "nvm"
+brew "fnm"
 
 # Productivity
 cask "microsoft-edge"
@@ -42,6 +42,7 @@ cask "swiftformat-for-xcode"
 cask "orbstack"
 cask "rapidapi"
 cask "ollama"
+cask "hopper-disassembler"
 
 # Fonts
 cask "font-fira-code"

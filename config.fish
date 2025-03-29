@@ -119,6 +119,19 @@ function reverse_hex
     echo $reversed
 end
 
+function update_node_alias
+    sudo ln -sf ~/.local/share/fnm/aliases/default/bin/node /usr/local/bin/node
+    sudo ln -sf ~/.local/share/fnm/aliases/default/bin/npm /usr/local/bin/npm
+    sudo ln -sf ~/.local/share/fnm/aliases/default/bin/npx /usr/local/bin/npx
+    sudo ln -sf ~/.local/share/fnm/aliases/default/bin/corepack /usr/local/bin/corepack
+
+    echo "Node.js symlinks updated"
+    echo "node: $(node --version)"
+    echo "npm: $(npm --version)"
+    echo "npx: $(npx --version)"
+    echo "corepack: $(corepack --version)"
+end
+
 # macOS specific functions
 if test (uname) = Darwin
     function restart_finder
@@ -141,13 +154,9 @@ if test (uname) = Darwin
     end
 end
 
-# Function to load NVM
-function load_nvm
-    if test -d "$HOME/.nvm" && test -f "$HOME/.nvmrc"
-        nvm use $(cat ~/.nvmrc)
-    end
+function load_node
+    fnm env --shell fish | source
 end
 
-# Load all aliases and NVM
 load_aliases
-load_nvm
+load_node
