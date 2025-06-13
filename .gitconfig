@@ -33,7 +33,7 @@
 	tool = vscode
 
 [mergetool "vscode"]
-	cmd = code --wait $MERGED
+	cmd = windsurf --wait $MERGED
 
 [diff]
 	tool = difftastic
@@ -46,7 +46,7 @@
 	cmd = difft "$LOCAL" "$REMOTE"
 
 [difftool "vscode"]
-	cmd = "code --wait --diff $LOCAL $REMOTE"
+	cmd = "windsurf --wait --diff $LOCAL $REMOTE"
 
 [pager]
 	difftool = true
@@ -57,10 +57,10 @@
 		--set-upstream-to=origin/`git symbolic-ref --short HEAD`
 
 [filter "lfs"]
-	required = true
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
+	required = true
 
 [url "git@github.com:"]
 	insteadOf = https://github.com/
