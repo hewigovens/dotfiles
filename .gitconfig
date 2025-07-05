@@ -33,7 +33,7 @@
 	tool = vscode
 
 [mergetool "vscode"]
-	cmd = windsurf --wait $MERGED
+	cmd = code --wait $MERGED
 
 [diff]
 	tool = difftastic
@@ -46,7 +46,7 @@
 	cmd = difft "$LOCAL" "$REMOTE"
 
 [difftool "vscode"]
-	cmd = "windsurf --wait --diff $LOCAL $REMOTE"
+	cmd = "code --wait --diff $LOCAL $REMOTE"
 
 [pager]
 	difftool = true

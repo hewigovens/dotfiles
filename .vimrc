@@ -52,21 +52,13 @@ set undolevels=1000 "maximum number of changes that can be undone
 set undoreload=10000 "maximum number lines to save for undo on a buffer reload
 
 "GUI
-"set mouse=a
+set mouse=a
 
 "Mapping
 imap jj <Esc>
-map <leader>td <Plug>TaskList
-map <leader>g :GundoToggle<CR>
-map <Leader>n <plug>NERDTreeTabsToggle<CR>
-map <leader>j :RopeGotoDefinition<CR>
-map <leader>r :RopeRename<CR>
-map <leader>mg :call MakeGreen()<CR>
 map <leader>co :copen<CR>
 map <leader>cc :cclose<CR>
 nmap <leader>a <Esc>:Ack!
-nmap <F8> :TagbarToggle<CR>
-nmap <C-c><C-c> :!gcc -Wall % -o %:r.out<CR>
 
 vmap <tab>   >gv
 vmap <s-tab> <gv
@@ -86,14 +78,6 @@ filetype plugin indent on
 
 let g:neocomplcache_enable_at_startup = 1
 let g:SuperTabDefaultCompletionType = "context"
-let g:pyflaskes_use_quickfix = 0
-let g:pep8_map='<leader>8'
-let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
-let g:nerdtree_tabs_open_on_console_startup=1
-
-let NERDTreeQuitOnOpen=1
-let NERDTreeShowHidden=1
-let NERDTreeIgnore=['\.pyc','\~$','\.swo$','\.swp$','\.git','\.hg','\.svn','\.bzr']
 
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
