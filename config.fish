@@ -31,7 +31,7 @@ function load_aliases
         alias cls='clear'
     end
 
-    # Git aliases
+    # Dev aliases
     function load_git_aliases
         alias gs='git status'
         alias ga='git add'
@@ -47,6 +47,7 @@ function load_aliases
         alias gpl='git pull'
         alias gp='git push'
         alias gbd='git branch -D'
+        alias claude='claude --dangerously-skip-permissions'
     end
 
     # macOS specific aliases
