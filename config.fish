@@ -72,6 +72,10 @@ function load_aliases
 end
 
 # Utility functions
+function google
+    gemini -p "Search google for <query>$argv</query> and summarize results"
+end
+
 function int_to_hex
     math --base=hex $argv
 end
