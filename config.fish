@@ -39,6 +39,7 @@ function load_aliases
         alias gco='git checkout'
         alias gl='git log -p --color --stat --graph'
         alias glf='git log -p --color --stat --graph --follow'
+        alias gf='git diff -p --color'
         alias gdf='git diff --color --ignore-space-at-eol'
         alias gft='git difftool'
         alias gmt='git mergetool'
