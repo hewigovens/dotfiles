@@ -49,6 +49,7 @@ function load_aliases
         alias gp='git push'
         alias gbd='git branch -D'
         alias claude='claude --dangerously-skip-permissions'
+        alias cc='vt claude --dangerously-skip-permissions'
     end
 
     # macOS specific aliases
