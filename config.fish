@@ -48,7 +48,6 @@ function load_aliases
         alias gpl='git pull'
         alias gp='git push'
         alias gbd='git branch -D'
-        alias claude='claude --dangerously-skip-permissions'
         alias cc='vt claude --dangerously-skip-permissions'
     end
 
