@@ -49,6 +49,7 @@ function load_aliases
         alias gp='git push'
         alias gbd='git branch -D'
         alias cc='vt claude --dangerously-skip-permissions'
+        alias codex='codex -m gpt-5 -c model_reasoning_effort="high"'
     end
 
     # macOS specific aliases
