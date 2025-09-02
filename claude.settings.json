@@ -1,4 +1,7 @@
 {
+  "env": {
+    "CLAUDE_CODE_ENABLE_TELEMETRY": "false"
+  },
   "permissions": {
     "allow": [
       "WebFetch(domain:github.com)",
@@ -22,7 +25,10 @@
     "deny": [],
     "defaultMode": "bypassPermissions"
   },
-  "env": {
-    "CLAUDE_CODE_ENABLE_TELEMETRY": "false"
+  "model": "opusplan",
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y ccstatusline@latest",
+    "padding": 0
   }
 }
