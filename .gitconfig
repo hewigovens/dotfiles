@@ -19,6 +19,9 @@
 	editor = vim
 	ignorecase = false
 	excludesfile = ~/.gitignore
+	fsmonitor = true
+	untrackedCache = true
+	splitIndex = true
 
 [commit]
 	gpgsign = true
