@@ -1,11 +1,13 @@
+tap "hewigovens/homebrew-tap"
+
 brew "fish"
-brew "git-lfs"
 brew "mas"
 brew "difftastic"
 brew "tree"
 brew "gh"
 brew "uv"
 brew "fnm"
+brew "codex"
 
 # Productivity
 cask "microsoft-edge"
