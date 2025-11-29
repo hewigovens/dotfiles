@@ -1,4 +1,4 @@
-tap "hewigovens/homebrew-tap"
+tap "hewigovens/tap"
 
 brew "fish"
 brew "mas"
