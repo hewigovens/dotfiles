@@ -34,6 +34,7 @@
 
 [merge]
 	tool = vscode
+	conflictStyle = diff3
 
 [mergetool "vscode"]
 	cmd = code --wait $MERGED
@@ -70,3 +71,6 @@
 [rerere]
 	enabled = true
 	autoupdate = true
+[merge "mergiraf"]
+	name = mergiraf
+	driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L
