@@ -71,7 +71,7 @@ nnoremap <C-l> <C-w>l
 "Custom Command
 :command Save w !sudo tee %
 
-colorscheme desert
+colorscheme evening
 syntax on
 filetype on 
 filetype plugin indent on

@@ -49,7 +49,7 @@ function load_aliases
         alias gp='git push'
         alias gbd='git branch -D'
         alias claude="~/.claude/local/claude"
-        # alias codex='codex "always read AGENTS.md if it exists"'
+        alias z='zellij'
     end
 
     # macOS specific aliases
