@@ -1,89 +1,86 @@
-"Basic
+" Basic Setup
 set nocompatible
-set laststatus=2
-set nu
-set langmenu=en_US
-set noerrorbells
+set number
 set cursorline
+set noerrorbells
+set encoding=utf-8
+set mouse=a
 
-"Statusline
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
-set wildmenu
-set wildmode=longest,list,full
-
-"Indentation
+" Indentation
 set tabstop=4
 set shiftwidth=4
 set expandtab
 set softtabstop=4
 set autoindent
 
-"Fold
-set foldmethod=indent
-set foldlevel=99
-set completeopt=menuone,longest,preview
-
-"Search 
+" Search
 set ignorecase
 set smartcase
 set incsearch
-set hlsearch
+set hlsearch            " Highlight search terms
+" Press <Space> to turn off highlighting and clear any message already displayed.
+nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
-"Edit
+" UI & Status
+set laststatus=2
+set wildmenu
+set wildmode=longest,list,full
 set showcmd
 set showmode
-set showmatch
-set linebreak
-set report=0
-set encoding=utf-8
-" set spell
-set nowrap
+set scrolloff=5
 
-"File
+" File & Backup
 set autoread
-set autowrite
 set hidden
-set backup
+set nobackup
+set nowritebackup
+set noswapfile
 
-"Undo
-set undodir=~/.vim/undodir
-set undofile
-set undolevels=1000 "maximum number of changes that can be undone
-set undoreload=10000 "maximum number lines to save for undo on a buffer reload
+" Undo Configuration
+if has('persistent_undo')
+    set undofile
+    set undodir=~/.vim/undodir
+    set undolevels=1000
+    set undoreload=10000
+endif
 
-"GUI
-set mouse=a
+" =============================================================================
+" Vim-Plug Setup
+" =============================================================================
+" Auto-install vim-plug if missing
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-"Mapping
-imap jj <Esc>
-map <leader>co :copen<CR>
-map <leader>cc :cclose<CR>
-nmap <leader>a <Esc>:Ack!
+call plug#begin('~/.vim/plugged')
 
-vmap <tab>   >gv
-vmap <s-tab> <gv
+" Essential Plugins
+Plug 'preservim/nerdtree'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-commentary'
+Plug 'vimpostor/vim-lumen'
 
+call plug#end()
+
+" Plugin Settings
+
+" Theme
+let g:lumen_light_colorscheme = 'shine'
+let g:lumen_dark_colorscheme = 'slate'
+
+" NERDTree
+map <C-n> :NERDTreeToggle<CR>
+let NERDTreeShowHidden=1
+
+" Mappings
+" Window navigation
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-"Custom Command
-:command Save w !sudo tee %
-
-colorscheme evening
-syntax on
-filetype on 
-filetype plugin indent on
-
-let g:neocomplcache_enable_at_startup = 1
-let g:SuperTabDefaultCompletionType = "context"
-
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html,markdown set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType c set omnifunc=ccomplete#Complete
-
-autocmd VimEnter * wincmd 1
+" Exit insert mode mapping
+imap jj <Esc>

@@ -6,6 +6,8 @@
 .netrwhist
 *.swp
 undodir/
+plugged/
+autoload/
 
 # VSCode
 .vscode/
