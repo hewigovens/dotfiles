@@ -172,5 +172,13 @@ function load_node
     # pnpm end
 end
 
+function load_bun
+    set -gx BUN_INSTALL ~/.bun
+    if not string match -q -- $BUN_INSTALL/bin $PATH
+        set -gx PATH "$BUN_INSTALL/bin" $PATH
+    end
+end
+
 load_aliases
 load_node
+load_bun
