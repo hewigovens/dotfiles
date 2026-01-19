@@ -17,7 +17,7 @@ set autoindent
 set ignorecase
 set smartcase
 set incsearch
-set hlsearch            " Highlight search terms
+set hlsearch
 " Press <Space> to turn off highlighting and clear any message already displayed.
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
@@ -44,10 +44,7 @@ if has('persistent_undo')
     set undoreload=10000
 endif
 
-" =============================================================================
 " Vim-Plug Setup
-" =============================================================================
-" Auto-install vim-plug if missing
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
