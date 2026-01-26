@@ -40,4 +40,7 @@ link "$DOTFILES/.vimrc" ~/.vimrc
 link "$DOTFILES/fish/config.fish" ~/.config/fish/config.fish
 link "$DOTFILES/fish/fish_plugins" ~/.config/fish/fish_plugins
 
+# Zellij
+link "$DOTFILES/z/config.kdl" ~/.config/zellij/config.kdl
+
 echo "Done!"
