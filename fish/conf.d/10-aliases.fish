@@ -32,5 +32,4 @@ alias gp='git push'
 alias gbd='git branch -D'
 
 # Tools
-alias claude="~/.claude/local/claude"
 alias z='zellij'

@@ -24,6 +24,7 @@ node_modules/
 # gradle
 *.gradle/
 local.properties
+release.keystore
 
 # rust
 target/
