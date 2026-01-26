@@ -54,9 +54,9 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " Essential Plugins
-Plug 'preservim/nerdtree'
+" Plug 'preservim/nerdtree'
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-commentary'
 Plug 'vimpostor/vim-lumen'
 
@@ -69,8 +69,8 @@ let g:lumen_light_colorscheme = 'shine'
 let g:lumen_dark_colorscheme = 'slate'
 
 " NERDTree
-map <C-n> :NERDTreeToggle<CR>
-let NERDTreeShowHidden=1
+" map <C-n> :NERDTreeToggle<CR>
+" let NERDTreeShowHidden=1
 
 " Mappings
 " Window navigation
