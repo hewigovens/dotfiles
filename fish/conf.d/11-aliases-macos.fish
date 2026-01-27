@@ -7,5 +7,4 @@ if test (uname) = Darwin
     alias plisteditor='open -b com.apple.PropertyListEditor'
     alias sha1='shasum'
     alias sha256='shasum -a 256'
-    alias claude="~/.claude/local/claude"
 end
