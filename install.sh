@@ -11,10 +11,9 @@ link() {
         local current
         current=$(readlink "$dst")
         if [ "$current" = "$src" ]; then
-            echo "Already linked: $dst"
             return
         fi
-        echo "Removing existing symlink: $dst"
+        echo "Removing symlink: $dst"
         rm "$dst"
     elif [ -e "$dst" ]; then
         echo "Backing up: $dst -> $dst.bak"
@@ -25,8 +24,6 @@ link() {
     ln -s "$src" "$dst"
     echo "Linked: $dst -> $src"
 }
-
-echo "Installing dotfiles..."
 
 # Git
 link "$DOTFILES/.gitconfig" ~/.gitconfig
@@ -42,5 +39,8 @@ link "$DOTFILES/fish/fish_plugins" ~/.config/fish/fish_plugins
 
 # Zellij
 link "$DOTFILES/z/config.kdl" ~/.config/zellij/config.kdl
+
+# Agents
+link "$DOTFILES/claude.settings.json" ~/.claude/settings.json
 
 echo "Done!"
