@@ -273,7 +273,7 @@ theme "ayu_light"
 mouse_mode true
 pane_frames false
 scroll_buffer_size 200000
-copy_on_select false
+copy_on_select true
 session_name "claude"
 attach_to_session true
 auto_layout false
