@@ -5,3 +5,8 @@ if test -d $conf_dir
         source $file
     end
 end
+
+set -l local_conf ~/dotfiles/local.fish
+if test -f $local_conf
+    source $local_conf
+end

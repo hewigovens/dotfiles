@@ -36,6 +36,9 @@ set nobackup
 set nowritebackup
 set noswapfile
 
+command! -bar -nargs=0 Save w !sudo tee % >/dev/null | edit!
+command! -bar -nargs=0 W w !sudo tee % >/dev/null | edit!
+
 " Undo Configuration
 if has('persistent_undo')
     set undofile
