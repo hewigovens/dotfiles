@@ -56,24 +56,29 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-" Essential Plugins
-" Plug 'preservim/nerdtree'
-Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-Plug 'tpope/vim-commentary'
-Plug 'vimpostor/vim-lumen'
+Plug 'vim-airline/vim-airline', { 'on': [] }
+Plug 'vim-airline/vim-airline-themes', { 'on': [] }
+Plug 'tpope/vim-commentary', { 'on': 'Commentary' }
+Plug 'vimpostor/vim-lumen', { 'on': [] }
 
 call plug#end()
-
-" Plugin Settings
 
 " Theme
 let g:lumen_light_colorscheme = 'shine'
 let g:lumen_dark_colorscheme = 'slate'
 
-" NERDTree
-" map <C-n> :NERDTreeToggle<CR>
-" let NERDTreeShowHidden=1
+" Defer heavier plugin loading until after startup
+autocmd VimEnter * ++once call plug#load('vim-airline', 'vim-airline-themes', 'vim-lumen')
+
+" Performance 
+let g:airline#extensions#tabline#enabled = 0
+let g:airline_powerline_fonts = 0
+
+set noshowmode
+set lazyredraw
+set ttyfast
+set synmaxcol=200
+set updatetime=300
 
 " Mappings
 " Window navigation
