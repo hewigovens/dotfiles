@@ -1,13 +1,16 @@
 [user]
 	name = hewigovens
 	email = 360470+hewigovens@users.noreply.github.com
-	signingkey = ~/.ssh/sign_ed25519.pub
+	signingkey = ~/.ssh/sign_ed25519
 
 [push]
 	default = current
 
 [pull]
 	ff = only
+
+[submodule]
+	recurse = true
 
 [init]
 	defaultBranch = main
@@ -34,15 +37,18 @@
 	allowedSignersFile = ~/.ssh/allowed_signers
 
 [merge]
-	tool = vscode
+	tool = mergiraf
 	conflictStyle = diff3
+
+[mergetool "mergiraf"]
+	cmd = mergiraf solve "$MERGED"
 
 [mergetool "vscode"]
 	cmd = code --wait $MERGED
 
 [diff]
 	tool = difftastic
-	external = difft
+	external = difft --display inline
 
 [difftool]
 	prompt = false
@@ -59,7 +65,7 @@
 [alias]
 	set-upstream = \
 		!git branch \
-		--set-upstream-to=origin/`git symbolic-ref --short HEAD`
+		--set-upstream-to=origin/$(git symbolic-ref --short HEAD)
 
 [filter "lfs"]
 	clean = git-lfs clean -- %f
@@ -69,6 +75,7 @@
 
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+
 [rerere]
 	enabled = true
 	autoupdate = true
