@@ -30,6 +30,7 @@ alias gra='git rebase --abort'
 alias gpl='git pull'
 alias gp='git push'
 alias gbd='git branch -D'
+alias lzgit='lazygit'
 
 # Tools
 alias z='zellij'
