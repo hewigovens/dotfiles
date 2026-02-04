@@ -8,6 +8,7 @@ brew "gh"
 brew "uv"
 brew "fnm"
 brew "codex"
+brew "mergiraf"
 
 # Productivity
 cask "microsoft-edge"
@@ -46,7 +47,6 @@ cask "hopper-disassembler"
 # Fonts
 cask "font-fira-code"
 cask "font-cascadia-code"
-cask "font-meslo-for-powerlevel10k"
 
 # https://apps.apple.com/us/app/telegram/id747648890?mt=12
 mas "Telegram", id: 747648890
