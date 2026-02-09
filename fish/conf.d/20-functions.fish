@@ -62,3 +62,35 @@ function update_node_alias
     echo "npx: $(npx --version)"
     echo "corepack: $(corepack --version)"
 end
+
+
+function fish_list_paths
+  set -l count (count $fish_user_paths)
+  for i in (seq 1 $count)
+    printf "%d: %s\n" $i $fish_user_paths[$i]
+  end
+end
+
+function fish_remove_path
+  if test (count $argv) -eq 0
+    echo "Usage: fish_list_paths; fish_remove_path <index>"
+    return 1
+  end
+
+  if not string match -q -r '^[0-9]+$' "$argv[1]"
+    echo "Error: index must be a number"
+    return 1
+  end
+
+  set -l index $argv[1]
+  set -l count (count $fish_user_paths)
+
+  if test $index -lt 1 -o $index -gt $count
+    echo "Error: index out of range (1-$count)"
+    return 1
+  end
+
+  set -l removed_path $fish_user_paths[$index]
+  set -e fish_user_paths[$index]
+  echo "Removed [$index]: $removed_path"
+end
