@@ -64,33 +64,46 @@ function update_node_alias
 end
 
 
-function fish_list_paths
-  set -l count (count $fish_user_paths)
-  for i in (seq 1 $count)
-    printf "%d: %s\n" $i $fish_user_paths[$i]
-  end
+function __fish_user_path_remove_at -a index
+    set -l path $fish_user_paths[$index]
+    set -e fish_user_paths[$index]
+    echo "Removed [$index]: $path"
 end
 
-function fish_remove_path
-  if test (count $argv) -eq 0
-    echo "Usage: fish_list_paths; fish_remove_path <index>"
-    return 1
-  end
+function fish_list_paths
+    set -l count (count $fish_user_paths)
+    if test $count -gt 0
+        for i in (seq $count)
+            printf "%d: %s\n" $i $fish_user_paths[$i]
+        end
+    end
+end
 
-  if not string match -q -r '^[0-9]+$' "$argv[1]"
-    echo "Error: index must be a number"
-    return 1
-  end
+function fish_remove_path_idx -a index
+    if test -z "$index"; or not string match -q -r '^\d+$' "$index"
+        echo "Usage: fish_remove_path_idx <index>"
+        return 1
+    end
 
-  set -l index $argv[1]
-  set -l count (count $fish_user_paths)
+    set -l count (count $fish_user_paths)
+    if test "$index" -ge 1 -a "$index" -le "$count"
+        __fish_user_path_remove_at "$index"
+    else
+        echo "Error: index $index out of range (1-$count)"
+        return 1
+    end
+end
 
-  if test $index -lt 1 -o $index -gt $count
-    echo "Error: index out of range (1-$count)"
-    return 1
-  end
+function fish_remove_path -a path
+    if test -z "$path"
+        echo "Usage: fish_remove_path <full_path>"
+        return 1
+    end
 
-  set -l removed_path $fish_user_paths[$index]
-  set -e fish_user_paths[$index]
-  echo "Removed [$index]: $removed_path"
+    if set -l index (contains -i "$path" $fish_user_paths)
+        __fish_user_path_remove_at "$index"
+    else
+        echo "Error: path '$path' not found in \$fish_user_paths"
+        return 1
+    end
 end
