@@ -2,14 +2,19 @@
   "env": {
     "CLAUDE_CODE_ENABLE_TELEMETRY": "false"
   },
+  "includeCoAuthoredBy": false,
   "permissions": {
     "defaultMode": "bypassPermissions"
   },
   "model": "opus",
-  "alwaysThinkingEnabled": true,
   "statusLine": {
     "type": "command",
     "command": "npx -y ccstatusline@latest",
     "padding": 0
-  }
+  },
+  "enabledPlugins": {
+    "claude-mem@thedotmack": true
+  },
+  "alwaysThinkingEnabled": true,
+  "skipDangerousModePermissionPrompt": true
 }
