@@ -48,7 +48,6 @@
 
 [diff]
 	tool = difftastic
-	external = difft --display inline
 
 [difftool]
 	prompt = false

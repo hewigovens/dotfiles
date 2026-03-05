@@ -13,7 +13,7 @@
     "padding": 0
   },
   "enabledPlugins": {
-    "claude-mem@thedotmack": true
+    "rust-analyzer-lsp@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true,
   "skipDangerousModePermissionPrompt": true
