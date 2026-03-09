@@ -53,7 +53,7 @@
 	prompt = false
 
 [difftool "difftastic"]
-	cmd = difft "$LOCAL" "$REMOTE"
+	cmd = difft "$MERGED" "$LOCAL" "abcdef1" "100644" "$REMOTE" "abcdef2" "100644"
 
 [difftool "vscode"]
 	cmd = "code --wait --diff $LOCAL $REMOTE"
@@ -62,6 +62,9 @@
 	difftool = true
 
 [alias]
+	ddiff = -c diff.external=difft diff
+	dshow = -c diff.external=difft show --ext-diff
+	dlog = -c diff.external=difft log --ext-diff
 	set-upstream = \
 		!git branch \
 		--set-upstream-to=origin/$(git symbolic-ref --short HEAD)
