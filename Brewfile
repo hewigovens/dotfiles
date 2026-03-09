@@ -3,12 +3,17 @@ tap "hewigovens/tap"
 brew "fish"
 brew "mas"
 brew "difftastic"
+brew "delta"
 brew "tree"
 brew "gh"
 brew "uv"
 brew "fnm"
 brew "codex"
 brew "mergiraf"
+brew "wakeonlan"
+brew "lazygit"
+brew "zellij"
+brew "just"
 
 # Productivity
 cask "microsoft-edge"
@@ -16,7 +21,8 @@ cask "1password"
 cask "spotify"
 cask "signal"
 cask "chatgpt"
-cask "claude"
+cask "legcord"
+cask "typora"
 
 # Utilities
 cask "raycast"
@@ -26,23 +32,20 @@ cask "rectangle"
 cask "suspicious-package"
 cask "daisydisk"
 cask "pearcleaner"
-cask "monitorcontrol"
+cask "pdf-expert"
 cask "bettermouse"
 
 # Dev
-cask "iterm2"
 cask "ghostty"
 cask "visual-studio-code"
 cask "proxyman"
 cask "github"
 cask "tailscale"
 cask "xcodes"
-cask "github-copilot-for-xcode"
-cask "swiftformat-for-xcode"
 cask "orbstack"
-cask "rapidapi"
-cask "ollama"
 cask "hopper-disassembler"
+cask "claude-code"
+cask "codex-app"
 
 # Fonts
 cask "font-fira-code"
@@ -56,7 +59,7 @@ mas "Irvue", id: 1039633667
 mas "Gapplin", id: 768053424
 # https://apps.apple.com/us/app/shadowrocket/id932747118
 mas "Shadowrocket", id: 932747118
-# https://apps.apple.com/us/app/immersive-translate-for-safari/id6447957425
-mas "Immersive Translate for Safari", id: 6447957425
+# https://apps.apple.com/us/app/ublock-origin-lite/id6745342698
+mas "uBlock Origin Lite", id: 6745342698
 # https://apps.apple.com/us/app/localsend/id1661733229
 mas "LocalSend", id: 1661733229

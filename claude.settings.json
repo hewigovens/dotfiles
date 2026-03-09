@@ -6,11 +6,9 @@
   "permissions": {
     "defaultMode": "bypassPermissions"
   },
-  "model": "opus",
   "statusLine": {
     "type": "command",
-    "command": "npx -y ccstatusline@latest",
-    "padding": 0
+    "command": "bash \"$HOME/.claude/statusline.sh\""
   },
   "enabledPlugins": {
     "rust-analyzer-lsp@claude-plugins-official": true
