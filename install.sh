@@ -29,6 +29,7 @@ link() {
 link "$DOTFILES/.gitconfig" ~/.gitconfig
 link "$DOTFILES/.gitignore" ~/.gitignore
 link "$DOTFILES/.gitattributes" ~/.gitattributes
+link "$DOTFILES/.jj.config.toml" ~/.jj.config.toml
 
 # Vim
 link "$DOTFILES/.vimrc" ~/.vimrc
