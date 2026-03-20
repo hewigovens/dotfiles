@@ -1,0 +1,6 @@
+font-size = 14
+font-family = "Cascadia Code"
+font-feature = "liga"
+theme = dark:GitHub Dark Default,light:GitHub Light Default
+shell-integration-features = ssh-terminfo
+shell-integration-features = ssh-env
