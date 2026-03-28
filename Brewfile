@@ -26,7 +26,6 @@ cask "typora"
 
 # Utilities
 cask "raycast"
-cask "hiddenbar"
 cask "obsidian"
 cask "rectangle"
 cask "suspicious-package"
@@ -46,6 +45,7 @@ cask "orbstack"
 cask "hopper-disassembler"
 cask "claude-code"
 cask "codex-app"
+cask "jayjay"
 
 # Fonts
 cask "font-fira-code"
@@ -63,3 +63,5 @@ mas "Shadowrocket", id: 932747118
 mas "uBlock Origin Lite", id: 6745342698
 # https://apps.apple.com/us/app/localsend/id1661733229
 mas "LocalSend", id: 1661733229
+# https://apps.apple.com/us/app/hidden-bar/id1452453066
+mas "Hidden Bar", id: 1452453066
