@@ -3,3 +3,22 @@
 [user]
 name = "hewigovens"
 email = "360470+hewigovens@users.noreply.github.com"
+
+[signing]
+backend = "ssh"
+behavior = "own"
+key = "/Users/hewig/.ssh/sign_ed25519"
+
+[git]
+sign-on-push = true
+
+[ui]
+show-cryptographic-signatures = true
+
+[fix.tools.rustfmt]
+command = ["rustfmt", "--edition", "2024"]
+patterns = ["glob:'**/*.rs'"]
+
+[fix.tools.swiftformat]
+command = ["swiftformat", "--stdinpath", "$path", "stdin"]
+patterns = ["glob:'**/*.swift'"]
