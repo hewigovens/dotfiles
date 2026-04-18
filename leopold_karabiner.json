@@ -313,37 +313,6 @@
                 "key_code": "delete_or_backspace",
                 "modifiers": {
                     "mandatory": [
-                        "shift"
-                    ]
-                }
-            },
-            "to": [
-                {
-                    "key_code": "grave_accent_and_tilde",
-                    "modifiers": [
-                        "shift"
-                    ]
-                }
-            ],
-            "type": "basic"
-        },
-        {
-            "conditions": [
-                {
-                    "identifiers": [
-                        {
-                            "is_keyboard": true,
-                            "product_id": 34050,
-                            "vendor_id": 2652
-                        }
-                    ],
-                    "type": "device_if"
-                }
-            ],
-            "from": {
-                "key_code": "delete_or_backspace",
-                "modifiers": {
-                    "mandatory": [
                         "control"
                     ]
                 }
