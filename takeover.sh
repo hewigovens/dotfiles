@@ -2,7 +2,7 @@
 set -euo pipefail
 
 usage() {
-  echo "usage: $(basename "$0") <claude|codex> [-f|--force]" >&2
+  echo "usage: $(basename "$0") <claude|codex> [--pid PID] [-f|--force]" >&2
   exit 2
 }
 
@@ -30,6 +30,32 @@ collect_pids() {
       usage
       ;;
   esac
+}
+
+pid_matches_tool() {
+  local tool=$1
+  local wanted_pid=$2
+
+  while IFS= read -r found_pid; do
+    [[ "$found_pid" == "$wanted_pid" ]] && return 0
+  done < <(collect_pids "$tool")
+
+  return 1
+}
+
+print_tuis() {
+  local pid tty cpu cwd command
+
+  printf '%6s %-8s %-5s %-50s %s\n' "PID" "TTY" "CPU" "CWD" "COMMAND"
+  for pid in "$@"; do
+    tty=$(ps -o tty= -p "$pid" 2>/dev/null | tr -d ' ' || true)
+    cpu=$(ps -o %cpu= -p "$pid" 2>/dev/null | awk '{print int($1)}' || true)
+    cwd=$(get_cwd "$pid")
+    command=$(ps -o command= -p "$pid" 2>/dev/null || true)
+
+    printf '%6s %-8s %4s%% %-50s %s\n' \
+      "$pid" "${tty:-?}" "${cpu:-?}" "$cwd" "${command:-?}"
+  done
 }
 
 restart_claude() {
@@ -64,28 +90,77 @@ tool=${1:-}
 [[ -n "$tool" ]] || usage
 shift
 
-FORCE=0
-[[ "${1:-}" == "-f" || "${1:-}" == "--force" ]] && FORCE=1
-
-pids=()
-while IFS= read -r found_pid; do
-  [[ -n "$found_pid" ]] && pids+=("$found_pid")
-done < <(collect_pids "$tool")
-
-case "${#pids[@]}" in
-  0)
-    echo "no running $tool TUI found"
-    exit 1
-    ;;
-  1)
-    pid=${pids[0]}
-    ;;
-  *)
-    echo "multiple $tool TUIs running:"
-    ps -o pid,tty,command -p "$(IFS=,; echo "${pids[*]}")"
-    exit 1
-    ;;
+case "$tool" in
+  claude|codex) ;;
+  *) usage ;;
 esac
+
+FORCE=0
+PID=
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -f|--force)
+      FORCE=1
+      shift
+      ;;
+    --pid)
+      shift
+      [[ -n "${1:-}" ]] || usage
+      PID=$1
+      shift
+      ;;
+    --pid=*)
+      PID=${1#--pid=}
+      [[ -n "$PID" ]] || usage
+      shift
+      ;;
+    *)
+      usage
+      ;;
+  esac
+done
+
+if [[ -n "$PID" && ! "$PID" =~ ^[0-9]+$ ]]; then
+  echo "invalid pid: $PID" >&2
+  exit 2
+fi
+
+if [[ -n "$PID" ]]; then
+  if ! kill -0 "$PID" 2>/dev/null; then
+    echo "pid $PID is not running"
+    exit 1
+  fi
+
+  if ! pid_matches_tool "$tool" "$PID"; then
+    echo "pid $PID is not a running $tool TUI"
+    ps -o pid,tty,comm,command -p "$PID" 2>/dev/null || true
+    exit 1
+  fi
+
+  pid=$PID
+else
+  pids=()
+  while IFS= read -r found_pid; do
+    [[ -n "$found_pid" ]] && pids+=("$found_pid")
+  done < <(collect_pids "$tool")
+
+  case "${#pids[@]}" in
+    0)
+      echo "no running $tool TUI found"
+      exit 1
+      ;;
+    1)
+      pid=${pids[0]}
+      ;;
+    *)
+      echo "multiple $tool TUIs running:"
+      print_tuis "${pids[@]}"
+      echo "rerun with --pid PID to choose one"
+      exit 1
+      ;;
+  esac
+fi
 
 cpu=$(ps -o %cpu= -p "$pid" | awk '{print int($1)}')
 cwd=$(get_cwd "$pid")
