@@ -34,3 +34,4 @@ target/
 
 local.fish
 .claude/
+.agents/
