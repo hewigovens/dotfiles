@@ -24,7 +24,7 @@ collect_pids() {
       ;;
     codex)
       ps -axo pid=,comm=,command= \
-        | awk '$2=="codex" && !($4 ~ /^(app-server|exec|review|login|logout|mcp|plugin|mcp-server|app|completion|sandbox|debug|apply|cloud|exec-server|features|help)$/) {print $1}'
+        | awk '$2=="codex" && !($4 ~ /^(app-server|remote-control|exec|review|login|logout|mcp|plugin|mcp-server|app|completion|sandbox|debug|apply|cloud|exec-server|features|help)$/) {print $1}'
       ;;
     *)
       usage
@@ -67,19 +67,49 @@ restart_claude() {
 
 restart_codex() {
   local cwd=$1
+  local mode="${CODEX_TAKEOVER_CODEX_MODE:-app-server}"
+
+  case "$mode" in
+    app-server|app_server|tui|websocket)
+      restart_codex_app_server "$cwd"
+      ;;
+    remote-control|remote_control)
+      if ! codex remote-control --help >/dev/null 2>&1; then
+        echo "codex remote-control unavailable, falling back to websocket TUI" >&2
+        restart_codex_app_server "$cwd"
+        return
+      fi
+
+      cd "$cwd"
+      echo "starting codex remote-control from $cwd"
+      exec codex remote-control
+      ;;
+    *)
+      echo "invalid CODEX_TAKEOVER_CODEX_MODE: $mode" >&2
+      exit 2
+      ;;
+  esac
+}
+
+restart_codex_app_server() {
+  local cwd=$1
   local port="${CODEX_REMOTE_PORT:-8765}"
-  local remote="ws://127.0.0.1:$port"
+  local listen_host="${CODEX_APP_SERVER_HOST:-127.0.0.1}"
+  local listen="ws://$listen_host:$port"
+  local remote_host="$listen_host"
+  [[ "$remote_host" == "0.0.0.0" ]] && remote_host="127.0.0.1"
+  local remote="${CODEX_APP_SERVER_REMOTE:-ws://$remote_host:$port}"
 
   if lsof -iTCP:"$port" -sTCP:LISTEN >/dev/null 2>&1; then
     echo "app-server already listening on :$port, reusing"
   else
-    nohup codex app-server --listen "$remote" >/tmp/codex-app-server.log 2>&1 &
+    nohup codex app-server --listen "$listen" >/tmp/codex-app-server.log 2>&1 &
     disown
     for _ in $(seq 1 50); do
       lsof -iTCP:"$port" -sTCP:LISTEN >/dev/null 2>&1 && break
       sleep 0.1
     done
-    echo "app-server: $remote (log: /tmp/codex-app-server.log)"
+    echo "app-server: $listen (log: /tmp/codex-app-server.log)"
   fi
 
   cd "$cwd"
