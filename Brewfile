@@ -25,8 +25,7 @@ cask "legcord"
 cask "typora"
 
 # Utilities
-cask "raycast"
-cask "obsidian"
+cask "maccy"
 cask "rectangle"
 cask "suspicious-package"
 cask "daisydisk"
@@ -36,7 +35,8 @@ cask "bettermouse"
 
 # Dev
 cask "ghostty"
-cask "visual-studio-code"
+cask "muxy"
+cask "zed"
 cask "proxyman"
 cask "github"
 cask "tailscale"

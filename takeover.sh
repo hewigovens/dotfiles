@@ -14,21 +14,24 @@ examples:
   $name codex --ssh std
   $name codex --ssh std --pid 12345
   $name codex --remote-control
-  CODEX_APP_SERVER_HOST=192.168.50.124 $name codex --ssh std
+  CODEX_LOCAL_PORT=8766 $name codex --ssh std
   $name claude
   $name claude --remote-control
   $name claude --remote-control my-session
 
 notes:
-  --ssh is codex-only; it starts a remote codex app-server and attaches locally.
+  --ssh is codex-only; it starts a remote codex app-server bound to the remote's
+  127.0.0.1 and forwards a local port to it over SSH. nothing is exposed on the
+  remote host's LAN.
   claude takeover restarts claude interactively on the current machine.
   claude --remote-control requires a Claude Code build/account that supports it.
   codex --remote-control starts codex remote-control only; it does not attach a local TUI.
 
 environment:
-  CODEX_REMOTE_PORT           app-server port (default: 8765)
-  CODEX_APP_SERVER_HOST       bind host for codex app-server
-  CODEX_APP_SERVER_REMOTE     client websocket URL override
+  CODEX_REMOTE_PORT           app-server port on the remote (default: 8765)
+  CODEX_LOCAL_PORT            local forwarded port for --ssh (default: same as remote)
+  CODEX_APP_SERVER_HOST       bind host for local (non --ssh) codex app-server
+  CODEX_APP_SERVER_REMOTE     client websocket URL override (non --ssh)
   CODEX_TAKEOVER_CODEX_MODE   app-server (default) or remote-control
 EOF
   exit 2
@@ -219,29 +222,14 @@ restart_codex_app_server_listener() {
   done
 }
 
-guess_ssh_app_server_host() {
-  local ssh_host=$1
-
-  ssh "$ssh_host" 'bash -lc '"'"'
-    if command -v tailscale >/dev/null 2>&1; then
-      addr=$(tailscale ip -4 2>/dev/null | sed -n "1p")
-      [[ -n "$addr" ]] && { printf "%s\n" "$addr"; exit 0; }
-    fi
-    ipconfig getifaddr en0 2>/dev/null && exit 0
-    ipconfig getifaddr en1 2>/dev/null && exit 0
-    set -- $(hostname -I 2>/dev/null || true)
-    [[ -n "${1:-}" ]] && printf "%s\n" "$1"
-  '"'"'' | sed -n '1p'
-}
-
 takeover_over_ssh() {
   local ssh_host=$1
   local tool=$2
   local script=$3
-  local listen_host="${CODEX_APP_SERVER_HOST:-}"
-  local port="${CODEX_REMOTE_PORT:-8765}"
+  local remote_port="${CODEX_REMOTE_PORT:-8765}"
+  local local_port="${CODEX_LOCAL_PORT:-$remote_port}"
   local remote_args=()
-  local remote_cmd remote_output remote cwd
+  local remote_cmd remote_output cwd ctl_socket rc
 
   if [[ "$tool" != "codex" ]]; then
     echo "--ssh is only supported for codex" >&2
@@ -259,19 +247,17 @@ takeover_over_ssh() {
     exit 1
   fi
 
-  if [[ -z "$listen_host" ]]; then
-    listen_host=$(guess_ssh_app_server_host "$ssh_host")
-  fi
-  if [[ -z "$listen_host" ]]; then
-    echo "could not determine a reachable address for $ssh_host" >&2
-    echo "set CODEX_APP_SERVER_HOST to the remote Tailscale or LAN IP" >&2
+  if lsof -iTCP:"$local_port" -sTCP:LISTEN >/dev/null 2>&1; then
+    echo "local port $local_port already in use; set CODEX_LOCAL_PORT to override" >&2
     exit 1
   fi
 
   [[ "$FORCE" -eq 1 ]] && remote_args+=("--force")
   [[ -n "$PID" ]] && remote_args+=("--pid" "$PID")
 
-  remote_cmd="env CODEX_APP_SERVER_HOST=$(shell_quote "$listen_host") CODEX_REMOTE_PORT=$(shell_quote "$port") CODEX_TAKEOVER_SERVER_ONLY=1 bash -s -- codex"
+  # Force the remote app-server to bind 127.0.0.1; reach it through an SSH
+  # tunnel so nothing is exposed on the remote host's LAN/Tailscale interface.
+  remote_cmd="env CODEX_APP_SERVER_HOST=127.0.0.1 CODEX_REMOTE_PORT=$(shell_quote "$remote_port") CODEX_TAKEOVER_SERVER_ONLY=1 bash -s -- codex"
   for arg in "${remote_args[@]}"; do
     remote_cmd+=" $(shell_quote "$arg")"
   done
@@ -282,15 +268,28 @@ takeover_over_ssh() {
   fi
 
   printf '%s\n' "$remote_output"
-  remote=$(printf '%s\n' "$remote_output" | awk -F= '/^TAKEOVER_REMOTE=/{print substr($0,17)}' | tail -n 1)
   cwd=$(printf '%s\n' "$remote_output" | awk -F= '/^TAKEOVER_CWD=/{print substr($0,14)}' | tail -n 1)
 
-  if [[ -z "$remote" || -z "$cwd" ]]; then
-    echo "remote takeover did not report a Codex endpoint" >&2
+  if [[ -z "$cwd" ]]; then
+    echo "remote takeover did not report a working directory" >&2
     exit 1
   fi
 
-  exec codex --remote "$remote" -C "$cwd" resume --last
+  ctl_socket=$(mktemp -u "${TMPDIR:-/tmp}/codex-takeover-XXXXXX.sock")
+  echo "tunneling 127.0.0.1:$local_port -> $ssh_host:127.0.0.1:$remote_port"
+  if ! ssh -fN -M -S "$ctl_socket" \
+        -o ExitOnForwardFailure=yes \
+        -o ServerAliveInterval=30 \
+        -L "127.0.0.1:$local_port:127.0.0.1:$remote_port" \
+        "$ssh_host"; then
+    echo "failed to open SSH tunnel" >&2
+    exit 1
+  fi
+  trap 'ssh -S "$ctl_socket" -O exit "$ssh_host" >/dev/null 2>&1 || true' EXIT
+
+  rc=0
+  codex --remote "ws://127.0.0.1:$local_port" -C "$cwd" resume --last || rc=$?
+  exit "$rc"
 }
 
 tool=${1:-}
