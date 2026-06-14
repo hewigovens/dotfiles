@@ -62,9 +62,6 @@
 	difftool = true
 
 [alias]
-	ddiff = -c diff.external=difft diff
-	dshow = -c diff.external=difft show --ext-diff
-	dlog = -c diff.external=difft log --ext-diff
 	set-upstream = \
 		!git branch \
 		--set-upstream-to=origin/$(git symbolic-ref --short HEAD)
@@ -74,9 +71,6 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-
-[url "git@github.com:"]
-	insteadOf = https://github.com/
 
 [rerere]
 	enabled = true

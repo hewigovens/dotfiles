@@ -22,3 +22,12 @@ patterns = ["glob:'**/*.rs'"]
 [fix.tools.swiftformat]
 command = ["swiftformat", "--stdinpath", "$path", "stdin"]
 patterns = ["glob:'**/*.swift'"]
+
+[merge-tools.zed]
+program = "zed"
+merge-args = ["--wait", "$output"]
+merge-tool-edits-conflict-markers = true
+conflict-marker-style = "git"
+diff-args = ["--wait", "--diff", "$left", "$right"]
+
+[aliases]
