@@ -107,3 +107,7 @@ function fish_remove_path -a path
         return 1
     end
 end
+
+function claude
+    command claude --settings '{"ultracode": true}' $argv
+end
