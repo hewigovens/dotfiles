@@ -1,6 +1,7 @@
 {
   "env": {
-    "CLAUDE_CODE_ENABLE_TELEMETRY": "false"
+    "CLAUDE_CODE_ENABLE_TELEMETRY": "false",
+    "CLAUDE_CODE_SUBAGENT_MODEL": "sonnet"
   },
   "includeCoAuthoredBy": false,
   "attribution": {
@@ -16,18 +17,23 @@
   "enabledPlugins": {
     "rust-analyzer-lsp@claude-plugins-official": true,
     "security-guidance@claude-plugins-official": true,
-    "frontend-design@claude-plugins-official": true
+    "frontend-design@claude-plugins-official": false
   },
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
+  "autoCompactWindow": 400000,
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "skipWorkflowUsageWarning": true,
   "theme": "auto",
   "agentPushNotifEnabled": true,
+  "hooks": {
+    "SessionStart": [],
+    "PreToolUse": []
+  },
   "skipAutoPermissionPrompt": true,
   "autoMode": {
     "environment": []
   },
-  "model": "claude-fable-5[1m]"
+  "model": "fable[1m]"
 }

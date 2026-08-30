@@ -13,6 +13,7 @@ brew "wakeonlan"
 brew "lazygit"
 brew "zellij"
 brew "just"
+brew "jq"
 
 # Productivity
 cask "microsoft-edge"
