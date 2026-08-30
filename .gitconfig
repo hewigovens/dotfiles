@@ -80,8 +80,8 @@
 	name = mergiraf
 	driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L
 [credential "https://origin.cursor.com/git"]
-	helper = 
-	helper = !/Users/hewig/.local/bin/origin credential-helper
+	helper =
+	helper = !~/.local/bin/origin credential-helper
 [credential "https://origin.cursor.com"]
-	helper = 
-	helper = !/Users/hewig/.local/bin/origin credential-helper
+	helper =
+	helper = !~/.local/bin/origin credential-helper
