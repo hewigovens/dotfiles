@@ -1,7 +1,7 @@
 {
   "env": {
     "CLAUDE_CODE_ENABLE_TELEMETRY": "false",
-    "CLAUDE_CODE_SUBAGENT_MODEL": "sonnet"
+    "CLAUDE_CODE_SUBAGENT_MODEL": "opus"
   },
   "includeCoAuthoredBy": false,
   "attribution": {
@@ -21,7 +21,7 @@
   },
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
-  "autoCompactWindow": 400000,
+  "autoCompactWindow": 800000,
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "skipWorkflowUsageWarning": true,
