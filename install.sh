@@ -52,5 +52,9 @@ link "$DOTFILES/z/config.kdl" ~/.config/zellij/config.kdl
 
 # Agents
 link "$DOTFILES/claude.settings.json" ~/.claude/settings.json
+if [ -f "$DOTFILES/agents/AGENTS.md" ]; then
+    link "$DOTFILES/agents/AGENTS.md" "${CODEX_HOME:-$HOME/.codex}/AGENTS.md"
+    link "$DOTFILES/agents/AGENTS.md" ~/.claude/CLAUDE.md
+fi
 
 echo "Done!"
