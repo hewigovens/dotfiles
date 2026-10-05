@@ -6,11 +6,16 @@ function __ai_prune_versions --argument-names versions selected kind
         string match -qr '^\d+\.\d+\.\d+([.-][A-Za-z0-9.-]+)?$' -- (path basename -- "$entry"); or continue
         if test "$kind" = claude
             test -f "$entry"; and test -x "$entry"; or continue
+        else if test "$kind" = cursor
+            test -d "$entry"; and test -x "$entry/cursor-agent"; and test -x "$entry/node"; and test -f "$entry/index.js"; or continue
         else
             test -d "$entry"; and test -f "$entry/codex-package.json"; and test -x "$entry/bin/codex"; or continue
         end
         # Re-read the selected version and running binaries before each removal.
         set -l current (path resolve -- "$selected")
+        if test "$kind" = cursor
+            set current (path dirname -- "$current")
+        end
         if not test -e "$selected"; or test (path dirname -- "$current") != "$versions"
             printf 'Skipping cleanup: cannot identify current version via %s\n' "$selected" >&2
             return 1
@@ -37,13 +42,13 @@ function __ai_prune_versions --argument-names versions selected kind
     end
 end
 
-function update_ai --description 'Update Claude and Codex; prune unused native versions'
+function update_ai --description 'Update Claude, Codex, and Cursor Agent; prune unused native versions'
     argparse --max-args=0 h/help -- $argv; or return 2
     if set -q _flag_help
-        printf 'Usage: update_ai\nUpdates Claude, then Codex, then cleans old Claude/CLI/app-server versions.\nRequires lsof for running-version detection.\n'
+        printf 'Usage: update_ai\nUpdates Claude, then Codex, then Cursor Agent, then cleans old Claude/CLI/app-server/Cursor Agent versions.\nRequires lsof for running-version detection.\n'
         return 0
     end
-    claude update; and codex update; or return $status
+    claude update; and codex update; and cursor-agent update; or return $status
 
     set -l data_home "$HOME/.local/share"
     set -q XDG_DATA_HOME[1]; and set data_home "$XDG_DATA_HOME"
@@ -55,4 +60,6 @@ function update_ai --description 'Update Claude and Codex; prune unused native v
         set -l root "$codex_home/packages/$package"
         __ai_prune_versions "$root/releases" "$root/current" codex; or return $status
     end
+    set -l cursor_bin (command -s cursor-agent)
+    __ai_prune_versions "$HOME/.local/share/cursor-agent/versions" "$cursor_bin" cursor; or return $status
 end
