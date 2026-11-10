@@ -1,7 +1,6 @@
 [user]
 	name = hewigovens
 	email = 360470+hewigovens@users.noreply.github.com
-	signingkey = ~/.ssh/sign_ed25519
 
 [push]
 	default = current
@@ -26,15 +25,6 @@
 	untrackedCache = true
 	splitIndex = true
 	attributesFile = ~/.gitattributes
-
-[commit]
-	gpgsign = true
-
-[gpg]
-	format = ssh
-
-[gpg "ssh"]
-	allowedSignersFile = ~/.ssh/allowed_signers
 
 [merge]
 	tool = mergiraf
@@ -85,3 +75,7 @@
 [credential "https://origin.cursor.com"]
 	helper =
 	helper = !~/.local/bin/origin credential-helper
+
+# Commit signing; linked by install.sh only when the signing key exists
+[include]
+	path = ~/.gitconfig.signing

@@ -51,6 +51,11 @@ function reverse_hex
 end
 
 function update_node_alias
+    if not test -x ~/.local/share/fnm/aliases/default/bin/node
+        echo "update_node_alias: no fnm default node found, skipping" >&2
+        return 1
+    end
+
     sudo ln -sf ~/.local/share/fnm/aliases/default/bin/node /usr/local/bin/node
     sudo ln -sf ~/.local/share/fnm/aliases/default/bin/npm /usr/local/bin/npm
     sudo ln -sf ~/.local/share/fnm/aliases/default/bin/npx /usr/local/bin/npx

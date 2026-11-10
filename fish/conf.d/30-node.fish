@@ -1,5 +1,8 @@
 function load_node
-    fnm env --shell fish | source
+    # fnm isn't there on a fresh install; skip until it's installed
+    if type -q fnm
+        fnm env --shell fish | source
+    end
 
     # pnpm
     set -gx PNPM_HOME ~/Library/pnpm

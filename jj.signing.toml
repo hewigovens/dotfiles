@@ -1,0 +1,10 @@
+#:schema https://docs.jj-vcs.dev/latest/config-schema.json
+# Linked by install.sh only when the signing key exists.
+
+[signing]
+backend = "ssh"
+behavior = "own"
+key = "~/.ssh/sign_ed25519"
+
+[revsets]
+git-sign-on-push = "~signed() & mine()"

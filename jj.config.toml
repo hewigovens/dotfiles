@@ -4,14 +4,6 @@
 name = "hewigovens"
 email = "360470+hewigovens@users.noreply.github.com"
 
-[signing]
-backend = "ssh"
-behavior = "own"
-key = "/Users/hewig/.ssh/sign_ed25519"
-
-[git]
-sign-on-push = true
-
 [ui]
 show-cryptographic-signatures = true
 

@@ -29,7 +29,16 @@ link() {
 link "$DOTFILES/.gitconfig" ~/.gitconfig
 link "$DOTFILES/.gitignore" ~/.gitignore
 link "$DOTFILES/.gitattributes" ~/.gitattributes
-link "$DOTFILES/.jj.config.toml" ~/.jj.config.toml
+link "$DOTFILES/jj.config.toml" ~/.config/jj/config.toml
+
+# Commit signing: only when the key exists, so git and jj still work without it
+SIGNING_KEY=~/.ssh/sign_ed25519
+if [ -f "$SIGNING_KEY" ]; then
+    link "$DOTFILES/.gitconfig.signing" ~/.gitconfig.signing
+    link "$DOTFILES/jj.signing.toml" ~/.config/jj/conf.d/signing.toml
+else
+    echo "Skipping commit signing: $SIGNING_KEY not found (re-run after adding it)"
+fi
 
 # Vim
 link "$DOTFILES/.vimrc" ~/.vimrc
