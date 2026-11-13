@@ -29,6 +29,11 @@ Git, Jujutsu, Vim, tmux, Ghostty, and Claude settings live at the repository roo
 `fish/config.fish` loads `fish/conf.d/*.fish` in order, then the optional,
 untracked `local.fish` at the repository root for machine-specific settings.
 
+Run `bash install.sh` to link the configuration, install Fisher if needed, and
+install or update the plugins listed in `fish/fish_plugins`. This step requires
+Fish, curl, and network access; if Fish is missing, install it and re-run the
+installer. Later, run `fisher update` from Fish to sync the plugin list.
+
 ## Shared agent instructions
 
 Create or edit the optional, gitignored `agents/AGENTS.md` to set personal

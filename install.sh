@@ -47,6 +47,23 @@ link "$DOTFILES/.vimrc" ~/.vimrc
 link "$DOTFILES/fish/config.fish" ~/.config/fish/config.fish
 link "$DOTFILES/fish/fish_plugins" ~/.config/fish/fish_plugins
 
+if command -v fish >/dev/null 2>&1; then
+    if ! fish -c 'functions -q fisher'; then
+        echo "Installing Fisher and Fish plugins..."
+        fisher_bootstrap=$(mktemp)
+        trap 'rm -f "$fisher_bootstrap"' EXIT
+        curl -fsSL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish -o "$fisher_bootstrap"
+        fish -c 'source "$argv[1]"; or exit 1; fisher update' "$fisher_bootstrap"
+        rm -f "$fisher_bootstrap"
+        trap - EXIT
+    else
+        echo "Updating Fish plugins..."
+        fish -c 'fisher update'
+    fi
+else
+    echo "Skipping Fisher: fish not found (install Fish and re-run)"
+fi
+
 # Zellij
 link "$DOTFILES/z/config.kdl" ~/.config/zellij/config.kdl
 
