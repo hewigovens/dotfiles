@@ -45,10 +45,16 @@ end
 function update_ai --description 'Update Claude, Codex, and Cursor Agent; prune unused native versions'
     argparse --max-args=0 h/help -- $argv; or return 2
     if set -q _flag_help
-        printf 'Usage: update_ai\nUpdates Claude, then Codex, then Cursor Agent, then cleans old Claude/CLI/app-server/Cursor Agent versions.\nRequires lsof for running-version detection.\n'
+        printf 'Usage: update_ai\nUpdates Claude, then Codex, then Cursor Agent (if agent is installed), then cleans old Claude/CLI/app-server/Cursor Agent versions.\nRequires lsof for running-version detection.\n'
         return 0
     end
-    claude update; and codex update; and cursor-agent update; or return $status
+    claude update; and codex update; or return $status
+    set -l cursor_bin (command -s agent)
+    if test -n "$cursor_bin"
+        command agent update; or return $status
+    else
+        printf 'Skipping Cursor Agent: agent not installed.\n'
+    end
 
     set -l data_home "$HOME/.local/share"
     set -q XDG_DATA_HOME[1]; and set data_home "$XDG_DATA_HOME"
@@ -60,6 +66,7 @@ function update_ai --description 'Update Claude, Codex, and Cursor Agent; prune 
         set -l root "$codex_home/packages/$package"
         __ai_prune_versions "$root/releases" "$root/current" codex; or return $status
     end
-    set -l cursor_bin (command -s cursor-agent)
-    __ai_prune_versions "$HOME/.local/share/cursor-agent/versions" "$cursor_bin" cursor; or return $status
+    if test -n "$cursor_bin"
+        __ai_prune_versions "$HOME/.local/share/cursor-agent/versions" "$cursor_bin" cursor; or return $status
+    end
 end
