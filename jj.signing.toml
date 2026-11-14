@@ -8,3 +8,6 @@ key = "~/.ssh/sign_ed25519"
 
 [revsets]
 git-sign-on-push = "~signed() & mine()"
+
+[signing.backends.ssh]
+allowed-signers = "~/.ssh/allowed_signers"
