@@ -34,6 +34,15 @@ install or update the plugins listed in `fish/fish_plugins`. This step requires
 Fish, curl, and network access; if Fish is missing, install it and re-run the
 installer. Later, run `fisher update` from Fish to sync the plugin list.
 
+The installer also applies the Tide prompt preferences saved in
+`fish/tide-config.fish`: Lean, true color, 24-hour time, two disconnected lines,
+compact spacing, many icons, and a transient prompt. To reapply just these
+preferences (overwriting your current Tide configuration), run:
+
+```sh
+fish ~/dotfiles/fish/tide-config.fish
+```
+
 ## Shared agent instructions
 
 Create or edit the optional, gitignored `agents/AGENTS.md` to set personal

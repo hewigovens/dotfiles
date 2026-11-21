@@ -60,6 +60,8 @@ if command -v fish >/dev/null 2>&1; then
         echo "Updating Fish plugins..."
         fish -c 'fisher update'
     fi
+    echo "Configuring Tide prompt..."
+    fish "$DOTFILES/fish/tide-config.fish"
 else
     echo "Skipping Fisher: fish not found (install Fish and re-run)"
 fi
